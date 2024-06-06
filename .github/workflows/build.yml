@@ -24,6 +24,12 @@ jobs:
       with:
         submodules: false
 
+    - name: Checkout vcpkg
+      uses: actions/checkout@v4
+      with:
+        repository: microsoft/vcpkg
+        path: vcpkg
+
     - name: Setup vcpkg
       uses: lukka/run-vcpkg@v11
       with:
