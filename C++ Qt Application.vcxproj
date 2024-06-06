@@ -75,7 +75,7 @@
     <Import Project="$(QtMsBuild)\qt_defaults.props" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
-    <QtInstall>$(ProjectDir)vcpkg\x64-windows\tools\qt5</QtInstall>
+    <QtInstall>$(ProjectDir)vcpkg_installed\x64-windows\tools\qt5</QtInstall>
     <QtModules>
     </QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
@@ -91,7 +91,7 @@
     </QMakeCodeLines>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="QtSettings">
-    <QtInstall>$(ProjectDir)vcpkg\x86-windows\tools\qt5</QtInstall>
+    <QtInstall>$(ProjectDir)vcpkg_installed\x86-windows\tools\qt5</QtInstall>
     <QtModules />
     <QtBuildConfig>debug</QtBuildConfig>
     <QtPathLibraryExecutables>..\..\debug\bin</QtPathLibraryExecutables>
@@ -104,7 +104,7 @@
     </QMakeCodeLines>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
-    <QtInstall>$(ProjectDir)vcpkg\x64-windows\tools\qt5</QtInstall>
+    <QtInstall>$(ProjectDir)vcpkg_installed\x64-windows\tools\qt5</QtInstall>
     <QtModules>
     </QtModules>
     <QtBuildConfig>release</QtBuildConfig>
@@ -115,7 +115,7 @@
     </QMakeCodeLines>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="QtSettings">
-    <QtInstall>$(ProjectDir)vcpkg\x86-windows\tools\qt5</QtInstall>
+    <QtInstall>$(ProjectDir)vcpkg_installed\x86-windows\tools\qt5</QtInstall>
     <QtModules />
     <QtBuildConfig>release</QtBuildConfig>
     <QtPathLibraryExecutables>..\..\bin</QtPathLibraryExecutables>
@@ -150,18 +150,18 @@
     <VcpkgEnableManifest>true</VcpkgEnableManifest>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <VcpkgInstalledDir>$(ProjectDir)vcpkg\</VcpkgInstalledDir>
+    <VcpkgInstalledDir>$(ProjectDir)vcpkg_installed\</VcpkgInstalledDir>
     <VcpkgConfiguration>Debug</VcpkgConfiguration>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Vcpkg">
-    <VcpkgInstalledDir>$(ProjectDir)vcpkg\</VcpkgInstalledDir>
+    <VcpkgInstalledDir>$(ProjectDir)vcpkg_installed\</VcpkgInstalledDir>
     <VcpkgConfiguration>Debug</VcpkgConfiguration>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <VcpkgInstalledDir>$(ProjectDir)vcpkg\</VcpkgInstalledDir>
+    <VcpkgInstalledDir>$(ProjectDir)vcpkg_installed\</VcpkgInstalledDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Vcpkg">
-    <VcpkgInstalledDir>$(ProjectDir)vcpkg\</VcpkgInstalledDir>
+    <VcpkgInstalledDir>$(ProjectDir)vcpkg_installed\</VcpkgInstalledDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -249,6 +249,7 @@
     <QtMoc Include="include\mainWindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".github\workflows\build.yml" />
     <None Include=".gitignore" />
     <None Include="vcpkg.json" />
     <None Include="vcpkg_install.bat" />
