@@ -24,17 +24,10 @@ jobs:
       with:
         submodules: false
 
-    - name: Checkout vcpkg
-      uses: actions/checkout@v4
-      with:
-        repository: microsoft/vcpkg
-        path: vcpkg
-
     - name: Setup vcpkg
-      run: |
-        cd vcpkg
-        ./bootstrap-vcpkg.bat
-        ./vcpkg integrate install
+      uses: lukka/run-vcpkg@v11
+      with:
+        runVcpkgInstall: true
 
     - name: Invoke Developer Command Prompt for VS
       uses: ilammy/msvc-dev-cmd@v1
