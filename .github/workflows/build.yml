@@ -17,6 +17,7 @@ jobs:
       matrix:
         configuration: ['Debug', 'Release']
         platform: ['x86', 'x64']
+        triplet: ['x86-windows', 'x64-windows']
 
     steps:
     - name: Checkout Code
@@ -31,12 +32,16 @@ jobs:
         path: vcpkg
 
     - name: Setup vcpkg
-      uses: lukka/run-vcpkg@v11
-      with:
-        runVcpkgInstall: true
+      run: |
+        cd vcpkg
+        ./bootstrap-vcpkg.bat
+        ./vcpkg integrate install
 
     - name: Invoke Developer Command Prompt for VS
       uses: ilammy/msvc-dev-cmd@v1
+
+    - name: Install Dependencies
+      run: vcpkg install --x-wait-for-lock --triplet ${{ matrix.triplet }} --x-install-root=vcpkg_installed
 
     - name: Build
       run: msbuild /p:Configuration=${{ matrix.configuration }} /p:Platform=${{ matrix.platform }}
