@@ -25,23 +25,34 @@ jobs:
       with:
         submodules: false
 
-    - name: Checkout vcpkg
-      uses: actions/checkout@v4
+    - name: Setup vcpkg
+      uses: lukka/run-vcpkg@v11
       with:
-        repository: microsoft/vcpkg
-        path: vcpkg
+        vcpkgGitCommitId: 90a5b03c9f1f7af404b16f780a2cc60b77c1f34f
+        vcpkgDirectory: ${{ github.workspace }}/vcpkg
+        doNotCache: false
+        runVcpkgInstall: true
 
     - name: Setup vcpkg
-      run: |
-        cd vcpkg
-        ./bootstrap-vcpkg.bat
-        ./vcpkg integrate install
+      run: ${{ github.workspace }}/vcpkg/vcpkg integrate install
+
+    #- name: Checkout vcpkg
+    #  uses: actions/checkout@v4
+    #  with:
+    #    repository: microsoft/vcpkg
+    #    path: vcpkg
+
+    #- name: Setup vcpkg
+    #  run: |
+    #    cd vcpkg
+    #    ./bootstrap-vcpkg.bat
+    #    ./vcpkg integrate install
 
     - name: Invoke Developer Command Prompt for VS
       uses: ilammy/msvc-dev-cmd@v1
 
-    - name: Install Dependencies
-      run: vcpkg install --x-wait-for-lock --triplet ${{ matrix.triplet }} --x-install-root=vcpkg_installed
+    #- name: Install Dependencies
+    #  run: vcpkg install --x-wait-for-lock --triplet ${{ matrix.triplet }} --x-install-root=vcpkg_installed
 
     - name: Build
       run: msbuild /p:Configuration=${{ matrix.configuration }} /p:Platform=${{ matrix.platform }}
