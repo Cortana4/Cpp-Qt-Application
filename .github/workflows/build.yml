@@ -32,7 +32,7 @@ jobs:
         arch: win64_msvc2019_64
         dir: ${{ github.workspace }}/Qt
         cache: false
-        no-qt-binaries: true
+        no-qt-binaries: false
 
     - name: Print directory tree with PowerShell
       run: |
