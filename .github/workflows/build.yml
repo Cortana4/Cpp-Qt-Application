@@ -25,6 +25,20 @@ jobs:
       with:
         submodules: false
 
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v4
+      with:
+        version: 5.15.2
+        arch: win64_msvc2019_64
+        dir: ${{ github.workspace }}/Qt
+        cache: true
+        no-qt-binaries: true
+
+    - name: Print directory tree with PowerShell
+      run: |
+        pwsh -command "cd ${{ github.workspace }}/Qt; Get-ChildItem -Recurse | Format-Table -Property FullName"
+        
+
     - name: Setup vcpkg
       uses: lukka/run-vcpkg@v11
       with:
