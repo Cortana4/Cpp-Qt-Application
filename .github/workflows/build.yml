@@ -16,8 +16,8 @@ jobs:
       fail-fast: false
       matrix:
         configuration: ['Debug', 'Release']
-        platform: ['x86', 'x64']
-        triplet: ['x86-windows', 'x64-windows']
+        platform: ['x64']
+        triplet: ['x64-windows']
 
     steps:
     - name: Checkout Code
