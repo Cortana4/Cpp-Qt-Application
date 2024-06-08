@@ -31,7 +31,7 @@ jobs:
         version: 5.15.2
         arch: win64_msvc2019_64
         dir: ${{ github.workspace }}/Qt
-        cache: true
+        cache: false
         no-qt-binaries: true
 
     - name: Print directory tree with PowerShell
