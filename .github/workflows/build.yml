@@ -25,19 +25,13 @@ jobs:
       with:
         submodules: false
 
-    - name: Install Qt
-      uses: jurplel/install-qt-action@v4
+    - name: Checkout Qt vstools
+      uses: actions/checkout@v4
       with:
-        version: 5.15.2
-        arch: win64_msvc2019_64
-        dir: ${{ github.workspace }}/Qt
-        cache: false
-        no-qt-binaries: false
+        repository: qt-labs/vstools
 
-    - name: Print directory tree with PowerShell
-      run: |
-        pwsh -command "cd ${{ github.workspace }}/Qt; Get-ChildItem -Recurse | Format-Table -Property FullName"
-        
+    - name: Set QtMsBuild Environment Variable
+      run: echo "QtMsBuild=${{ github.workspace }}/vstools/QtMSBuild/QtMsBuild" >> $env:GITHUB_ENV
 
     - name: Setup vcpkg
       uses: lukka/run-vcpkg@v11
@@ -47,7 +41,7 @@ jobs:
         doNotCache: false
         runVcpkgInstall: true
 
-    - name: Setup vcpkg
+    - name: Run vcpkg integrate install
       run: ${{ github.workspace }}/vcpkg/vcpkg integrate install
 
     #- name: Checkout vcpkg
