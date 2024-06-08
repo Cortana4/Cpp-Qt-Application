@@ -25,14 +25,28 @@ jobs:
       with:
         submodules: false
 
-    - name: Checkout Qt vstools
-      uses: actions/checkout@v4
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v4
       with:
-        repository: qt-labs/vstools
-        path: ${{ github.workspace }}/vstools
+        version: 5.15.2
+        arch: win64_msvc2019_64
+        dir: ${{ github.workspace }}
+        cache: false
+        no-qt-binaries: true
 
-    - name: Set QtMsBuild Environment Variable
-      run: echo "QtMsBuild=${{ github.workspace }}/vstools/QtMSBuild/QtMsBuild" >> $env:GITHUB_ENV
+    - name: Set Environment Variables
+      run: |
+          echo "QTDIR=$QT_ROOT_DIR" >> $env:GITHUB_ENV
+          echo "QtToolsPath=$QT_ROOT_DIR/bin" >> $env:GITHUB_ENV
+
+    #- name: Checkout Qt vstools
+    #  uses: actions/checkout@v4
+    #  with:
+    #    repository: qt-labs/vstools
+    #    path: ${{ github.workspace }}/vstools
+
+    #- name: Set QtMsBuild Environment Variable
+    #  run: echo "QtMsBuild=${{ github.workspace }}/vstools/QtMSBuild/QtMsBuild" >> $env:GITHUB_ENV
 
     - name: Checkout vcpkg
       uses: actions/checkout@v4
