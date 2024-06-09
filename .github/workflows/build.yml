@@ -31,8 +31,14 @@ jobs:
         repository: Cortana4/QtMsBuild
         path:  ${{ github.workspace }}/QtMsBuild
 
-    - name: Set QtMsBuild Environment Variable
-      run: echo "QtMsBuild=${{ github.workspace }}/QtMsBuild" >> $env:GITHUB_ENV
+    - name: Set Qt Environment Variables
+      run: |
+        echo "QtMsBuild=${{ github.workspace }}/QtMsBuild" >> $env:GITHUB_ENV
+        echo "QtImports="`
+        "${{ github.workspace }}/QtMsBuild/deploy/qt_import.props;"`
+        "${{ github.workspace }}/QtMsBuild/moc/qt_import.props;"`
+        "${{ github.workspace }}/QtMsBuild/qml/qt_import.props;"`
+        "${{ github.workspace }}/QtMsBuild/rcc/qt_import.props" >> $env:GITHUB_ENV
 
     #- name: Checkout Qt vstools
     #  uses: actions/checkout@v4
