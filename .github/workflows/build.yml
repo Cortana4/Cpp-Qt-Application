@@ -33,50 +33,34 @@ jobs:
 
     - name: Set Qt Environment Variables
       run: echo "QtMsBuild=${{ github.workspace }}/QtMsBuild/QtMsBuild" >> $env:GITHUB_ENV
-       
-    #- name: Checkout Qt vstools
-    #  uses: actions/checkout@v4
-    #  with:
-    #    repository: qt-labs/vstools
-    #    path: ${{ github.workspace }}/vstools
-
-    #- name: Set QtMsBuild Environment Variable
-    #  run: echo "QtMsBuild=${{ github.workspace }}/vstools/QtMSBuild/QtMsBuild" >> $env:GITHUB_ENV
-
-    - name: Checkout vcpkg
-      uses: actions/checkout@v4
-      with:
-        repository: microsoft/vcpkg
-        path: ${{ github.workspace }}/vcpkg
-    
-    - name: Setup vcpkg
-      run: |
-        ${{ github.workspace }}/vcpkg/bootstrap-vcpkg.bat
-        ${{ github.workspace }}/vcpkg/vcpkg integrate install
-
-    #- name: Setup vcpkg
-    #  uses: lukka/run-vcpkg@v11
-    #  with:
-    #    #vcpkgGitCommitId: 6f1ddd6b6878e7e66fcc35c65ba1d8feec2e01f8
-    #    vcpkgDirectory: ${{ github.workspace }}/vcpkg
-    #    doNotCache: true
-    #    runVcpkgInstall: true
-
-    #- name: Run vcpkg integrate install
-    #  run: ./vcpkg/vcpkg integrate install
 
     #- name: Checkout vcpkg
     #  uses: actions/checkout@v4
     #  with:
     #    repository: microsoft/vcpkg
-    #    path: vcpkg
+    #    path: ${{ github.workspace }}/vcpkg
+    
+    #- name: Setup vcpkg
+    #  run: |
+    #    ${{ github.workspace }}/vcpkg/bootstrap-vcpkg.bat
+    #    ${{ github.workspace }}/vcpkg/vcpkg integrate install
 
+    - name: Setup vcpkg
+      uses: lukka/run-vcpkg@v11
+      with:
+        vcpkgGitCommitId: 6f1ddd6b6878e7e66fcc35c65ba1d8feec2e01f8
+        vcpkgDirectory: ${{ github.workspace }}/vcpkg
+        doNotCache: false
+        runVcpkgInstall: true
+
+    - name: Run vcpkg integrate install
+      run: ${{ github.workspace }}/vcpkg/vcpkg integrate install
 
     - name: Invoke Developer Command Prompt for VS
       uses: ilammy/msvc-dev-cmd@v1
 
-    - name: Install Dependencies
-      run: vcpkg install --x-wait-for-lock --triplet ${{ matrix.triplet }} --x-install-root=vcpkg_installed
+    #- name: Install Dependencies
+    #  run: vcpkg install --x-wait-for-lock --triplet ${{ matrix.triplet }} --x-install-root=vcpkg_installed
 
     - name: Build
       run: msbuild /p:Configuration=${{ matrix.configuration }} /p:Platform=${{ matrix.platform }}
