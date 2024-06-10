@@ -15,13 +15,22 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        configuration: ['Debug', 'Release']
         include:
           - platform: 'x64'
             triplet: 'x64-windows'
+            configuration: 'Debug'
+
+          - platform: 'x64'
+            triplet: 'x64-windows'
+            configuration: 'Release'
 
           - platform: 'x86'
             triplet: 'x86-windows'
+            configuration: 'Debug'
+
+          - platform: 'x86'
+            triplet: 'x86-windows'
+            configuration: 'Release'
 
     env:
       VCPKG_DEFAULT_TRIPLET: ${{ matrix.triplet }}
