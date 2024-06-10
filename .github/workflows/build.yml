@@ -16,21 +16,21 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - platform: 'x64'
+          - configuration: 'Debug'
+            platform: 'x64'
             triplet: 'x64-windows'
-            configuration: 'Debug'
 
-          - platform: 'x64'
+          - configuration: 'Release'
+            platform: 'x64'
             triplet: 'x64-windows'
-            configuration: 'Release'
 
-          - platform: 'x86'
+          - configuration: 'Debug'
+            platform: 'x86'
             triplet: 'x86-windows'
-            configuration: 'Debug'
 
-          - platform: 'x86'
+          - configuration: 'Release'
+            platform: 'x86'
             triplet: 'x86-windows'
-            configuration: 'Release'
 
     env:
       VCPKG_DEFAULT_TRIPLET: ${{ matrix.triplet }}
@@ -51,6 +51,7 @@ jobs:
     - name: Set Qt Environment Variables
       run: echo "QtMsBuild=${{ github.workspace }}/QtMsBuild/QtMsBuild" >> $env:GITHUB_ENV
 
+    # vcpkg install has to run in this step in order to make Qt tools available before build
     - name: Setup vcpkg
       uses: lukka/run-vcpkg@v11
       with:
