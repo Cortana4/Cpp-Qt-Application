@@ -32,7 +32,7 @@ jobs:
         path:  ${{ github.workspace }}/QtMsBuild
 
     - name: Set Qt Environment Variables
-      run: echo "QtMsBuild=${{ github.workspace }}/QtMsBuild" >> $env:GITHUB_ENV
+      run: echo "QtMsBuild=${{ github.workspace }}/QtMsBuild/QtMsBuild" >> $env:GITHUB_ENV
        
     #- name: Checkout Qt vstools
     #  uses: actions/checkout@v4
