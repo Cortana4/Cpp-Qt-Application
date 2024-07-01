@@ -16,21 +16,21 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - configuration: 'Debug'
-            platform: 'x64'
-            triplet: 'x64-windows'
+          - configuration: Debug
+            platform: x64
+            triplet: x64-windows
 
-          - configuration: 'Release'
-            platform: 'x64'
-            triplet: 'x64-windows'
+          - configuration: Release
+            platform: x64
+            triplet: x64-windows
 
-          - configuration: 'Debug'
-            platform: 'x86'
-            triplet: 'x86-windows'
+          - configuration: Debug
+            platform: x86
+            triplet: x86-windows
 
-          - configuration: 'Release'
-            platform: 'x86'
-            triplet: 'x86-windows'
+          - configuration: Release
+            platform: x86
+            triplet: x86-windows
 
     env:
       VCPKG_DEFAULT_TRIPLET: ${{ matrix.triplet }}
@@ -46,7 +46,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         repository: Cortana4/QtMsBuild
-        path:  ${{ github.workspace }}/QtMsBuild
+        path: ${{ github.workspace }}/QtMsBuild
 
     - name: Set Qt Environment Variables
       run: echo "QtMsBuild=${{ github.workspace }}/QtMsBuild/QtMsBuild" >> $env:GITHUB_ENV
